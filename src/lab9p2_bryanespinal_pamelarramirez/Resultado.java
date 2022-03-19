@@ -3,29 +3,33 @@ package lab9p2_bryanespinal_pamelarramirez;
 
 
 public class Resultado {
-    private Clase clase;
-    private Alumno alumno;
-    private int nota = 0;
+    private int idAlumno, idExamen, nota = 0;
 
-    public Resultado(Clase clase, Alumno alumno) {
-        this.clase = clase;
-        this.alumno = alumno;
+    public Resultado(int idAlumno, int idExamen) {
+        this.idAlumno = idAlumno;
+        this.idExamen = idExamen;
+    }
+    
+    public Resultado(int idAlumno, int idExamen, int nota) {
+        this.idAlumno = idAlumno;
+        this.idExamen = idExamen;
+        this.nota = nota;
     }
 
-    public Clase getClase() {
-        return clase;
+    public int getIdAlumno() {
+        return idAlumno;
     }
 
-    public void setClase(Clase clase) {
-        this.clase = clase;
+    public void setIdAlumno(int idAlumno) {
+        this.idAlumno = idAlumno;
     }
 
-    public Alumno getAlumno() {
-        return alumno;
+    public int getIdExamen() {
+        return idExamen;
     }
 
-    public void setAlumno(Alumno alumno) {
-        this.alumno = alumno;
+    public void setIdExamen(int idExamen) {
+        this.idExamen = idExamen;
     }
 
     public int getNota() {
@@ -33,8 +37,9 @@ public class Resultado {
     }
 
     public void setNota(int nota) {
-        this.nota += nota;
+        this.nota = nota;
     }
+    
     
     
 }

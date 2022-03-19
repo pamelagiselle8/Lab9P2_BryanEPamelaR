@@ -15,16 +15,18 @@ public class DatosSistema {
     Dba db = new Dba("./NeoBlackboard.mdb");
     ArrayList<Usuario> usuarios = new ArrayList();
     ArrayList<Clase> clases = new ArrayList();
+    ArrayList<Resultado> resultados = new ArrayList();
     
-    // Cargar datos
-
     public DatosSistema() {
         
     }
     
+    // Cargar datos
+    
     public void cargarDatos() {
         cargarUsuarios();
         cargarClases();
+        cargarResultados();
     }
     
     public void cargarUsuarios() {
@@ -80,7 +82,7 @@ public class DatosSistema {
         }
     }
     
-    public void cargarPreguntas(String nombre, String idMaestro, String idExamen1, String idExamen2) {
+    public void cargarPreguntas() {
         db.conectar();
         for (Clase clase : clases) {
             try {
@@ -91,7 +93,7 @@ public class DatosSistema {
             }
         }
         try {
-            db.query.execute("select id_clase,tipo_examen,Pregunta,respuesta from clase");
+            db.query.execute("select id_clase,tipo_examen,Pregunta,respuesta from Preguntas");
             ResultSet rs = db.query.getResultSet();
             while (rs.next()) {
                 for (Clase clase : clases) {
@@ -109,6 +111,19 @@ public class DatosSistema {
         db.desconectar();
     }
     
+    public void cargarResultados() {
+        db.conectar();
+        try {
+            db.query.execute("select id_alumno,id_examen,nota from resultados");
+            ResultSet rs = db.query.getResultSet();
+            while (rs.next()) {
+                resultados.add(new Resultado(rs.getInt(1),rs.getInt(2),rs.getInt(3)));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+    }
     
     // Metodos agregar
     
@@ -128,8 +143,6 @@ public class DatosSistema {
     public void agregarClase(String nombre, String idMaestro, String idExamen1, String idExamen2) {
         db.conectar();
         try {
-            // "'" + + "','"
-            // "" + + "','"
             db.query.execute("INSERT INTO clase (Nombre,id_maestro,id_examen1,Id_examen2) " + "Values ('" + nombre + "', '" + idMaestro + "', '" + idExamen1 + "','" + idExamen2 + "')");
             db.commit();
             
@@ -168,7 +181,10 @@ public class DatosSistema {
     
     public void addAlumno(Alumno alumno){
         alumnos.add(alumno);
-        escribirArchivoAlumnos();
+        try {
+            escribirArchivoAlumnos();
+        } catch (Exception e) {
+        }
     }
     
     public void cargarArchivoAlumnos() {
@@ -273,16 +289,31 @@ public class DatosSistema {
         return usuarios;
     }
 
-    public void setUsuarios(ArrayList<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-
     public ArrayList<Clase> getClases() {
         return clases;
     }
 
-    public void setClases(ArrayList<Clase> clases) {
-        this.clases = clases;
+    public ArrayList<Resultado> getResultados() {
+        return resultados;
     }
     
+    
+    // Metodos para llenar componentes
+    
+    public DefaultComboBoxModel llenarCboMaestros() {
+        DefaultComboBoxModel cboModel = new DefaultComboBoxModel();
+        db.conectar();
+        try {
+            db.query.execute("select Id from Maestros");
+            ResultSet rs = db.query.getResultSet();
+            while (rs.next()) {
+                cboModel.addElement(rs.getString(1));
+            }
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+        return cboModel;
+    }
 }
