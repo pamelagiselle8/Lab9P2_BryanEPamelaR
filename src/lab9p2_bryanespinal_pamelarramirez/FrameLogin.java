@@ -10,10 +10,8 @@ import java.util.ArrayList;
 import javax.swing.* ;
 import javax.swing.table.DefaultTableModel;
 public class FrameLogin extends javax.swing.JFrame {
-Dba db = new Dba("./NeoBlackboard.mdb");
-adminAlumnos aA=new adminAlumnos("./alumnos.cbm");
+DatosSistema ds= new DatosSistema();
 String nomAdmin = "admin", passAdmin = "admin1234";
-ArrayList <Usuario> usuari = new ArrayList();
     /**
      * Creates new form FrameLogin
      */
@@ -219,10 +217,10 @@ ArrayList <Usuario> usuari = new ArrayList();
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         try {
-            if (contra1.equals(contra2)) {
-                aA.cargarArchivo();
-                aA.addAlumno(new Alumno(nombre.getText(), usuario.getText(), contra1.getText(), id.getText()));
-                aA.escribirArchivo();
+            if (contra1.getText().equals(contra2.getText())) {
+                ds.cargarArchivoAlumnos();
+                ds.addAlumno(new Alumno(nombre.getText(), usuario.getText(), contra1.getText(), id.getText()));
+                ds.escribirArchivoAlumnos();
                 JOptionPane.showMessageDialog(this, "Usuario Creado Exitosamente");
             }else{
                 JOptionPane.showMessageDialog(this, "Las Contraseñas con considen verifique esten iguales");
@@ -244,6 +242,21 @@ ArrayList <Usuario> usuari = new ArrayList();
             FrameAdmin ad=new FrameAdmin();
             ad.setVisible(true);
         }else{
+            ds.cargarUsuarios();
+            for (Usuario usu : ds.usuarios ) {
+                ;
+                usu.getPass();
+                if (usu.getNombreUsuario().equals(usuario.getText())) {
+                    
+                }
+            }
+            /*if (usu instanceof Maestro) {
+                    
+                }else{
+                    if (usu instanceof Alumno) {
+                        
+                    }
+                }*/
             boolean a=false;
             if (a) {
                 
