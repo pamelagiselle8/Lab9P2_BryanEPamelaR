@@ -1,8 +1,10 @@
 
 package lab9p2_bryanespinal_pamelarramirez;
 
+import java.io.Serializable;
 
-public class Usuario {
+
+public class Usuario implements Serializable {
     protected String nombre, nombreUsuario, pass, id;
 
     public Usuario(String nombre, String nombreUsuario, String pass, String id) {
