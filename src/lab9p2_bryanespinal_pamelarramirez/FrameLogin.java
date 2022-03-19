@@ -5,18 +5,22 @@
  */
 package lab9p2_bryanespinal_pamelarramirez;
 
-/**
- *
- * @author pame
- */
+import java.sql.* ;
+import java.util.ArrayList;
+import javax.swing.* ;
+import javax.swing.table.DefaultTableModel;
 public class FrameLogin extends javax.swing.JFrame {
-
+Dba db = new Dba("./NeoBlackboard.mdb");
+adminAlumnos aA=new adminAlumnos("./alumnos.cbm");
+String nomAdmin = "admin", passAdmin = "admin1234";
+ArrayList <Usuario> usuari = new ArrayList();
     /**
      * Creates new form FrameLogin
      */
     public FrameLogin() {
         initComponents();
         this.setLocationRelativeTo(null);
+        jLabel8.setVisible(false);
     }
 
     /**
@@ -35,20 +39,23 @@ public class FrameLogin extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        contra1 = new javax.swing.JTextField();
+        usu = new javax.swing.JTextField();
+        contra2 = new javax.swing.JTextField();
+        nombre = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        id = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         contrasenia = new javax.swing.JTextField();
-        usuario1 = new javax.swing.JTextField();
+        usuario = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
 
         FrameRegistro.setSize(new java.awt.Dimension(592, 560));
 
@@ -60,36 +67,36 @@ public class FrameLogin extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Roboto", 3, 17)); // NOI18N
         jLabel4.setText("Usuario");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Roboto", 3, 17)); // NOI18N
         jLabel5.setText("Nombre completo");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 32, -1, -1));
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Roboto", 3, 17)); // NOI18N
-        jLabel6.setText("Nombre completo");
-        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
+        jLabel6.setText("Confirme Contraseña");
+        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Roboto", 3, 17)); // NOI18N
         jLabel7.setText("Contraseña");
-        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
-        jTextField1.setBackground(new java.awt.Color(204, 255, 255));
-        jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 439, 30));
+        contra1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel4.add(contra1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 439, 30));
 
-        jTextField2.setBackground(new java.awt.Color(204, 255, 255));
-        jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 439, 30));
+        usu.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel4.add(usu, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 439, 30));
 
-        jTextField3.setBackground(new java.awt.Color(204, 255, 255));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        contra2.setBackground(new java.awt.Color(204, 255, 255));
+        contra2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                contra2ActionPerformed(evt);
             }
         });
-        jPanel4.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 439, 30));
+        jPanel4.add(contra2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 439, 30));
 
-        jTextField4.setBackground(new java.awt.Color(204, 255, 255));
-        jPanel4.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 439, 30));
+        nombre.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel4.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 439, 30));
 
         jButton3.setBackground(new java.awt.Color(204, 255, 255));
         jButton3.setText("Registrar");
@@ -100,20 +107,32 @@ public class FrameLogin extends javax.swing.JFrame {
         });
         jPanel4.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(403, 423, 90, 40));
 
-        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 25, 512, 472));
+        jLabel9.setFont(new java.awt.Font("Roboto", 3, 17)); // NOI18N
+        jLabel9.setText("Id");
+        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, -1, -1));
+
+        id.setBackground(new java.awt.Color(204, 255, 255));
+        id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idActionPerformed(evt);
+            }
+        });
+        jPanel4.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 439, 30));
+
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 512, 472));
 
         javax.swing.GroupLayout FrameRegistroLayout = new javax.swing.GroupLayout(FrameRegistro.getContentPane());
         FrameRegistro.getContentPane().setLayout(FrameRegistroLayout);
         FrameRegistroLayout.setHorizontalGroup(
             FrameRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
         );
         FrameRegistroLayout.setVerticalGroup(
             FrameRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -135,8 +154,8 @@ public class FrameLogin extends javax.swing.JFrame {
         contrasenia.setBackground(new java.awt.Color(204, 255, 255));
         jPanel2.add(contrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 330, 30));
 
-        usuario1.setBackground(new java.awt.Color(204, 255, 255));
-        jPanel2.add(usuario1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 330, 30));
+        usuario.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.add(usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 330, 30));
 
         jButton1.setBackground(new java.awt.Color(204, 255, 255));
         jButton1.setText("Registrase");
@@ -149,7 +168,17 @@ public class FrameLogin extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(204, 255, 255));
         jButton2.setText("Login");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(293, 373, 90, 40));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel8.setText("Usuario O Contraseña incorrecta");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 210, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -189,14 +218,44 @@ public class FrameLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        try {
+            if (contra1.equals(contra2)) {
+                aA.cargarArchivo();
+                aA.addAlumno(new Alumno(nombre.getText(), usuario.getText(), contra1.getText(), id.getText()));
+                aA.escribirArchivo();
+                JOptionPane.showMessageDialog(this, "Usuario Creado Exitosamente");
+            }else{
+                JOptionPane.showMessageDialog(this, "Las Contraseñas con considen verifique esten iguales");
+            }
+        } catch (Exception e) {
+        }
         FrameRegistro.setVisible(false);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }//GEN-LAST:event_jButton3MouseClicked
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void contra2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contra2ActionPerformed
         
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_contra2ActionPerformed
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        if (usuario.getText().equals(nomAdmin)&&contrasenia.getText().equals(passAdmin)) {
+            this.setVisible(false);
+            FrameAdmin ad=new FrameAdmin();
+            ad.setVisible(true);
+        }else{
+            boolean a=false;
+            if (a) {
+                
+            }else{
+                jLabel8.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,7 +294,10 @@ public class FrameLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFrame FrameRegistro;
+    private javax.swing.JTextField contra1;
+    private javax.swing.JTextField contra2;
     private javax.swing.JTextField contrasenia;
+    private javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -246,14 +308,14 @@ public class FrameLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField usuario1;
+    private javax.swing.JTextField nombre;
+    private javax.swing.JTextField usu;
+    private javax.swing.JTextField usuario;
     // End of variables declaration//GEN-END:variables
 }

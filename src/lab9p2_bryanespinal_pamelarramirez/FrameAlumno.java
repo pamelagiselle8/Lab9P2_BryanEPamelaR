@@ -4,12 +4,12 @@
  * and open the template in the editor.
  */
 package lab9p2_bryanespinal_pamelarramirez;
+import java.sql.* ;
+import javax.swing.* ;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author pame
- */
 public class FrameAlumno extends javax.swing.JFrame {
+Dba db = new Dba("./NeoBlackboard.mdb");
 
     /**
      * Creates new form FrameAlumno
@@ -177,7 +177,7 @@ public class FrameAlumno extends javax.swing.JFrame {
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
