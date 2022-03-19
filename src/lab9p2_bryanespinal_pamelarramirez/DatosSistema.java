@@ -302,18 +302,19 @@ public class DatosSistema {
     
     public DefaultComboBoxModel llenarCboMaestros() {
         DefaultComboBoxModel cboModel = new DefaultComboBoxModel();
-        db.conectar();
-        try {
-            db.query.execute("select Id from Maestros");
-            ResultSet rs = db.query.getResultSet();
-            while (rs.next()) {
-                cboModel.addElement(rs.getString(1));
+        for (Usuario usuario : usuarios) {
+            if (usuario instanceof Maestro) {
+                cboModel.addElement(usuario);
             }
         }
-        catch (SQLException ex) {
-            ex.printStackTrace();
+        return cboModel;
+    }
+    
+    public DefaultComboBoxModel llenarCboClases() {
+        DefaultComboBoxModel cboModel = new DefaultComboBoxModel();
+        for (Clase clase : clases) {
+            cboModel.addElement(clase.getNombre());
         }
-        db.desconectar();
         return cboModel;
     }
 }

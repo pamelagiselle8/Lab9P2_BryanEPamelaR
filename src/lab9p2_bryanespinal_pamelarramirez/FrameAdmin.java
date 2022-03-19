@@ -6,46 +6,12 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class FrameAdmin extends javax.swing.JFrame {
-    
+    DatosSistema ds = new DatosSistema();
 
     public FrameAdmin() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
-
-    /*public DefaultComboBoxModel llenarCboMaestros() {
-        DefaultComboBoxModel cboModel = new DefaultComboBoxModel();
-        db.conectar();
-        try {
-            db.query.execute("select Id, Nombres from Maestros");
-            ResultSet rs = db.query.getResultSet();
-            while (rs.next()) {
-                cboModel.addElement(rs.getString(2) + "-" + rs.getString(1));
-            }
-        }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        db.desconectar();
-        return cboModel;
-    }
-    
-    public DefaultComboBoxModel llenarCboClases() {
-        DefaultComboBoxModel cboModel = new DefaultComboBoxModel();
-        db.conectar();
-        try {
-            db.query.execute("select Id, Nombre from clase");
-            ResultSet rs = db.query.getResultSet();
-            while (rs.next()) {
-                cboModel.addElement(rs.getString(1) + " " + rs.getString(2));
-            }
-        }
-        catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        db.desconectar();
-        return cboModel;
-    }*/
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -56,16 +22,16 @@ public class FrameAdmin extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtPass = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtId = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cboTipoUsuario = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -102,6 +68,12 @@ public class FrameAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
+
         jLabel13.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel13.setText("Administrar usuarios");
 
@@ -113,11 +85,16 @@ public class FrameAdmin extends javax.swing.JFrame {
 
         jLabel17.setText("Id");
 
-        jButton1.setText("Guardar");
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         jLabel18.setText("Tipo de usuario");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Seleccionar -", "Maestro", "Alumno" }));
+        cboTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Seleccionar -", "Maestro", "Alumno" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -128,16 +105,16 @@ public class FrameAdmin extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, 220, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cboTipoUsuario, javax.swing.GroupLayout.Alignment.LEADING, 0, 220, Short.MAX_VALUE)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField3)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtPass)
+                        .addComponent(txtId, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(350, Short.MAX_VALUE))
         );
@@ -149,25 +126,25 @@ public class FrameAdmin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel15)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel16)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnGuardar)
                 .addContainerGap(79, Short.MAX_VALUE))
         );
 
@@ -412,15 +389,72 @@ public class FrameAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnGuardarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClaseActionPerformed
-        String nombre = txtClase.getText();
-        String idExamen1 = txtExamen1.getText();
-        String idExamen2 = txtExamen2.getText();
-        
+        if (cboMaestros.getSelectedIndex() >= 0) {
+            try {
+                int idExamen1 = Integer.parseInt(txtExamen1.getText()),
+                idExamen2 = Integer.parseInt(txtExamen2.getText());
+                Maestro maestro = (Maestro) cboMaestros.getSelectedItem();
+                ds.getClases().add(new Clase(txtClase.getText(), maestro.getId(), idExamen1, idExamen2));
+                ds.cargarClases();
+            } catch (Exception e) {
+                
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar el tipo de usuario.");
+        }
     }//GEN-LAST:event_btnGuardarClaseActionPerformed
 
     private void btnGuardarPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPreguntaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarPreguntaActionPerformed
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        int tab = jTabbedPane1.getSelectedIndex();
+        switch(tab) {
+            case 0: {
+                // cboClases.setModel(ds.llenarCboClases());
+                break;
+            }
+            case 1: {
+                try {
+                    cboMaestros.setModel(ds.llenarCboMaestros());
+                } catch (Exception e) {
+                }
+                
+                break;
+            }
+            case 2: {
+                try {
+                    cboClases.setModel(ds.llenarCboClases());
+                } catch (Exception e) {
+                }
+                
+                break;
+            }
+            case 3: {
+                try {
+                    cboClasesNotas.setModel(ds.llenarCboClases());
+                } catch (Exception e) {
+                }
+                
+                break;
+            }
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        try {
+            if (cboTipoUsuario.getSelectedIndex() == 1) {
+                ds.agregarMaestro(txtNombre.getText(), txtUsuario.getText(), txtPass.getText(), txtId.getText());
+            } else if (cboTipoUsuario.getSelectedIndex() == 2) {
+                //ds.addAlumno(txtNombre.getText(), txtUsuario.getText(), txtPass.getText(), txtId.getText());
+            }
+            ds.cargarUsuarios();
+        } catch (Exception e) {
+        }
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -456,14 +490,14 @@ public class FrameAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGroupResp;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnGuardarClase;
     private javax.swing.JButton btnGuardarPregunta;
     private javax.swing.JComboBox<String> cboClases;
     private javax.swing.JComboBox<String> cboClasesNotas;
     private javax.swing.JComboBox<String> cboExamen;
     private javax.swing.JComboBox<String> cboMaestros;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cboTipoUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -492,16 +526,16 @@ public class FrameAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JRadioButton rbtnFalse;
     private javax.swing.JRadioButton rbtnTrue;
     private javax.swing.JTable tablaNotas;
     private javax.swing.JTextField txtClase;
     private javax.swing.JTextField txtExamen1;
     private javax.swing.JTextField txtExamen2;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtPass;
     private javax.swing.JTextArea txtPregunta;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
