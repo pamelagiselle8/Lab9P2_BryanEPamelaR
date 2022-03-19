@@ -281,6 +281,11 @@ public class FrameAdmin extends javax.swing.JFrame {
         jLabel10.setText("Clase");
 
         cboClases.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Seleccionar -" }));
+        cboClases.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboClasesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -416,6 +421,7 @@ public class FrameAdmin extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         this.setVisible(false);
+        new FrameLogin().setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnGuardarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClaseActionPerformed
@@ -436,7 +442,8 @@ public class FrameAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarClaseActionPerformed
 
     private void btnGuardarPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPreguntaActionPerformed
-        // TODO add your handling code here:
+        Clase clase = (Clase) cboClases.getSelectedItem();
+        // ds.agregarPregunta(clase.getId(), WIDTH, pregunta, rootPaneCheckingEnabled);
     }//GEN-LAST:event_btnGuardarPreguntaActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
@@ -484,6 +491,12 @@ public class FrameAdmin extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void cboClasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboClasesActionPerformed
+        if (cboClases.getSelectedIndex() >= 0) {
+            
+        }
+    }//GEN-LAST:event_cboClasesActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
