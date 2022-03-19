@@ -26,6 +26,10 @@ public class Pregunta {
     public void setRespuesta(boolean respuesta) {
         this.respuesta = respuesta;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Pregunta{" + "pregunta=" + pregunta + ", respuesta=" + respuesta + '}';
+    }
     
 }

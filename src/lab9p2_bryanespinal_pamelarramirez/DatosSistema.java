@@ -10,6 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class DatosSistema {
     Dba db = new Dba("./NeoBlackboard.mdb");
@@ -236,7 +237,10 @@ public class DatosSistema {
     
     public void addExamen(Examen examen){
         examenes.add(examen);
-        escribirArchivoExamenes();
+        try {
+            escribirArchivoExamenes();
+        } catch (Exception e) {
+        }
     }
     
     public void cargarArchivoExamenes() {
@@ -312,8 +316,23 @@ public class DatosSistema {
     public DefaultComboBoxModel llenarCboClases() {
         DefaultComboBoxModel cboModel = new DefaultComboBoxModel();
         for (Clase clase : clases) {
-            cboModel.addElement(clase.getNombre());
+            cboModel.addElement(clase);
         }
         return cboModel;
+    }
+    
+    public DefaultTableModel llenarTablaNotas() {
+        DefaultTableModel tblModel = new DefaultTableModel();
+        String[] a = new String[3];
+        tblModel.setColumnCount(5);
+        tblModel.setRowCount(resultados.size());
+        a[0] = "Nombre";
+        a[1] = "Clase";
+        a[2] = "Calificacion";
+        tblModel.setColumnIdentifiers(a);
+        for (Resultado resultado : resultados) {
+            
+        }
+        return tblModel;
     }
 }

@@ -42,6 +42,15 @@ public class FrameAdmin extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }
+    
+    public void validarPreguntas(Examen examen, Pregunta pregunta) {
+        if (examen.getPreguntas().size() < 6) {
+            examen.getPreguntas().add(pregunta);
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "No puede agregar mas de 5 preguntas al examen.");
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -281,11 +290,6 @@ public class FrameAdmin extends javax.swing.JFrame {
         jLabel10.setText("Clase");
 
         cboClases.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Seleccionar -" }));
-        cboClases.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboClasesActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -360,6 +364,11 @@ public class FrameAdmin extends javax.swing.JFrame {
         jLabel12.setText("Clase");
 
         cboClasesNotas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Seleccionar -" }));
+        cboClasesNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboClasesNotasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -443,15 +452,18 @@ public class FrameAdmin extends javax.swing.JFrame {
 
     private void btnGuardarPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPreguntaActionPerformed
         Clase clase = (Clase) cboClases.getSelectedItem();
+        boolean respuesta = false;
+        if (rbtnTrue.isSelected()) {
+            respuesta = true;
+        }
+        Pregunta pregunta = new Pregunta(txtPregunta.getText(), respuesta);
         if (cboExamen.getSelectedIndex() == 1) {
-            if (clase.getExamen1().getPreguntas().size() < 6) {
-                
-            }
+            validarPreguntas(clase.getExamen1(), pregunta);
         }
         else if (cboExamen.getSelectedIndex() == 2) {
-            
+            validarPreguntas(clase.getExamen2(), pregunta);
         }
-        // ds.agregarPregunta(clase.getId(), WIDTH, pregunta, rootPaneCheckingEnabled);
+        System.out.println(clase.getExamen1().getPreguntas());
     }//GEN-LAST:event_btnGuardarPreguntaActionPerformed
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
@@ -500,11 +512,11 @@ public class FrameAdmin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void cboClasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboClasesActionPerformed
-        if (cboClases.getSelectedIndex() >= 0) {
-            
+    private void cboClasesNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboClasesNotasActionPerformed
+        if (cboClasesNotas.getSelectedIndex() >= 0) {
+            Clase clase = (Clase) cboClasesNotas.getSelectedItem();
         }
-    }//GEN-LAST:event_cboClasesActionPerformed
+    }//GEN-LAST:event_cboClasesNotasActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

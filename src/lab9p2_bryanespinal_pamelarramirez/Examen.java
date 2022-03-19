@@ -8,7 +8,11 @@ import java.util.ArrayList;
 public class Examen implements Serializable {
     private int idExamen;
     private ArrayList <Pregunta> preguntas = new ArrayList();
-
+    
+    public Examen(int idExamen) {
+        this.idExamen = idExamen;
+    }
+    
     public Examen(int idExamen, ArrayList <Pregunta> preguntas) {
         this.idExamen = idExamen;
         this.preguntas = preguntas;
