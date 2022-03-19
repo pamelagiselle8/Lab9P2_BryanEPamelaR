@@ -145,7 +145,6 @@ public class DatosSistema {
         try {
             db.query.execute("INSERT INTO clase (Nombre,id_maestro,id_examen1,Id_examen2) " + "Values ('" + nombre + "', '" + idMaestro + "', '" + idExamen1 + "','" + idExamen2 + "')");
             db.commit();
-            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

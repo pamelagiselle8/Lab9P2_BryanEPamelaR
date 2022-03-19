@@ -11,6 +11,36 @@ public class FrameAdmin extends javax.swing.JFrame {
     public FrameAdmin() {
         initComponents();
         this.setLocationRelativeTo(null);
+        try {
+            ds.cargarDatos();
+        } catch (Exception e) {
+        }
+    }
+    
+    public void limpiarTab1() {
+        txtNombre.setText(null);
+        txtUsuario.setText(null);
+        txtPass.setText(null);
+        txtId.setText(null);
+        //cboTipoUsuario.setSelectedIndex(0);
+    }
+    
+    public void limpiarTab2() {
+        txtClase.setText(null);
+        //cboMaestros.setSelectedIndex(0);
+        txtExamen1.setText(null);
+        txtExamen2.setText(null);
+        try {
+            ds.cargarUsuarios();
+        } catch (Exception e) {
+        }
+    }
+    
+    public void limpiarTab3() {
+        try {
+            ds.cargarClases();
+        } catch (Exception e) {
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -391,11 +421,11 @@ public class FrameAdmin extends javax.swing.JFrame {
     private void btnGuardarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClaseActionPerformed
         if (cboMaestros.getSelectedIndex() >= 0) {
             try {
-                int idExamen1 = Integer.parseInt(txtExamen1.getText()),
-                idExamen2 = Integer.parseInt(txtExamen2.getText());
                 Maestro maestro = (Maestro) cboMaestros.getSelectedItem();
-                ds.getClases().add(new Clase(txtClase.getText(), maestro.getId(), idExamen1, idExamen2));
+                ds.agregarClase(txtClase.getText(), String.valueOf(maestro.getId()), txtExamen1.getText(), txtExamen2.getText());
                 ds.cargarClases();
+                limpiarTab2();
+                JOptionPane.showMessageDialog(this, "Clase agregada exitosamente.");
             } catch (Exception e) {
                 
             }
@@ -413,15 +443,15 @@ public class FrameAdmin extends javax.swing.JFrame {
         int tab = jTabbedPane1.getSelectedIndex();
         switch(tab) {
             case 0: {
-                // cboClases.setModel(ds.llenarCboClases());
+                limpiarTab1();
                 break;
             }
             case 1: {
+                limpiarTab2();
                 try {
                     cboMaestros.setModel(ds.llenarCboMaestros());
                 } catch (Exception e) {
                 }
-                
                 break;
             }
             case 2: {
@@ -429,7 +459,6 @@ public class FrameAdmin extends javax.swing.JFrame {
                     cboClases.setModel(ds.llenarCboClases());
                 } catch (Exception e) {
                 }
-                
                 break;
             }
             case 3: {
@@ -437,7 +466,6 @@ public class FrameAdmin extends javax.swing.JFrame {
                     cboClasesNotas.setModel(ds.llenarCboClases());
                 } catch (Exception e) {
                 }
-                
                 break;
             }
         }
@@ -447,13 +475,14 @@ public class FrameAdmin extends javax.swing.JFrame {
         try {
             if (cboTipoUsuario.getSelectedIndex() == 1) {
                 ds.agregarMaestro(txtNombre.getText(), txtUsuario.getText(), txtPass.getText(), txtId.getText());
+                limpiarTab1();
+                JOptionPane.showMessageDialog(this, "Maestro agregado exitosamente.");
             } else if (cboTipoUsuario.getSelectedIndex() == 2) {
                 //ds.addAlumno(txtNombre.getText(), txtUsuario.getText(), txtPass.getText(), txtId.getText());
             }
             ds.cargarUsuarios();
         } catch (Exception e) {
         }
-        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     public static void main(String args[]) {

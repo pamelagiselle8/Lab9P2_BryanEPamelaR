@@ -86,5 +86,10 @@ public class Clase {
     public void setIdExamen2(int IdExamen2) {
         this.IdExamen2 = IdExamen2;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
     
 }
