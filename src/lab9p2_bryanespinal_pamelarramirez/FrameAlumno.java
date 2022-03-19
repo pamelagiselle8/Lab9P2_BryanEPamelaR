@@ -10,12 +10,19 @@ import javax.swing.table.DefaultTableModel;
 
 public class FrameAlumno extends javax.swing.JFrame {
 Dba db = new Dba("./NeoBlackboard.mdb");
-
+DatosSistema ds=new DatosSistema();
     /**
      * Creates new form FrameAlumno
      */
     public FrameAlumno() {
         initComponents();
+        ds.cargarClases();
+        for (Clase clase : ds.getClases()) {
+            jComboBox1.addItem(clase.getNombre());
+        }
+            jComboBox2.addItem("Examen 1");
+            jComboBox2.addItem("Examen 2");
+        
         
     }
 
@@ -56,7 +63,7 @@ Dba db = new Dba("./NeoBlackboard.mdb");
         jButton5 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        jComboBox2 = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout FrameExamenLayout = new javax.swing.GroupLayout(FrameExamen.getContentPane());
         FrameExamen.getContentPane().setLayout(FrameExamenLayout);
@@ -293,8 +300,6 @@ Dba db = new Dba("./NeoBlackboard.mdb");
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("Clase Con Examen Disponible");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -305,15 +310,15 @@ Dba db = new Dba("./NeoBlackboard.mdb");
                 .addGap(314, 314, 314))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(141, 141, 141)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(369, 369, 369)
                         .addComponent(jButton1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, 31)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(199, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -323,13 +328,13 @@ Dba db = new Dba("./NeoBlackboard.mdb");
                 .addComponent(jLabel4)
                 .addGap(55, 55, 55)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(85, 85, 85)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton5))
-                .addContainerGap(264, Short.MAX_VALUE))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Realizar Examenes", jPanel2);
@@ -349,8 +354,15 @@ Dba db = new Dba("./NeoBlackboard.mdb");
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        Clase c= ds.clases.get(jComboBox1.getSelectedIndex());
+        if (jComboBox2.getSelectedIndex()==0) {
+            
+        }else{
+            
+        }
         this.setVisible(false);
         examen.setVisible(true);
+        //c.ge
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
@@ -411,6 +423,7 @@ Dba db = new Dba("./NeoBlackboard.mdb");
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -427,7 +440,6 @@ Dba db = new Dba("./NeoBlackboard.mdb");
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel tiempo;
     // End of variables declaration//GEN-END:variables
 }

@@ -11,6 +11,7 @@ import javax.swing.* ;
 import javax.swing.table.DefaultTableModel;
 public class FrameLogin extends javax.swing.JFrame {
 DatosSistema ds= new DatosSistema();
+adminAlumnos ad=new adminAlumnos(".//Alumnos.cbm");
 String nomAdmin = "admin", passAdmin = "admin1234";
 String nomma = "profe", pasadm = "profe123";
 String nomalum = "alum", pasalum = "alum123";
@@ -214,9 +215,8 @@ String nomalum = "alum", pasalum = "alum123";
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
         try {
             if (contra1.getText().equals(contra2.getText())) {
-                ds.cargarArchivoAlumnos();
-                ds.addAlumno(new Alumno(nombre.getText(), usuario.getText(), contra1.getText(), id.getText()));
-                ds.escribirArchivoAlumnos();
+                ad.cargarArchivo();
+                ad.addAlumno(new Alumno(nombre.getText(), usuario.getText(), contra1.getText(), id.getText()));
                 JOptionPane.showMessageDialog(this, "Usuario Creado Exitosamente");
             }else{
                 JOptionPane.showMessageDialog(this, "Las Contraseñas con considen verifique esten iguales");
@@ -233,6 +233,7 @@ String nomalum = "alum", pasalum = "alum123";
     }//GEN-LAST:event_contra2ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+
         if (usuario.getText().equals(nomAdmin)&&contrasenia.getText().equals(passAdmin)) {
             this.setVisible(false);
             FrameAdmin ad=new FrameAdmin();
@@ -245,11 +246,13 @@ String nomalum = "alum", pasalum = "alum123";
             }else{
                 if (usuario.getText().equals(nomalum)&&contrasenia.getText().equals(pasalum)) {
                     this.setVisible(false);
-                    FrameMaestro ad=new FrameMaestro();
+                    FrameAlumno ad=new FrameAlumno();
                     ad.setVisible(true);
                 }
             }
         }
+        
+        
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
