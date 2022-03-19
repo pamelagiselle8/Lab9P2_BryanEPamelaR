@@ -443,6 +443,14 @@ public class FrameAdmin extends javax.swing.JFrame {
 
     private void btnGuardarPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPreguntaActionPerformed
         Clase clase = (Clase) cboClases.getSelectedItem();
+        if (cboExamen.getSelectedIndex() == 1) {
+            if (clase.getExamen1().getPreguntas().size() < 6) {
+                
+            }
+        }
+        else if (cboExamen.getSelectedIndex() == 2) {
+            
+        }
         // ds.agregarPregunta(clase.getId(), WIDTH, pregunta, rootPaneCheckingEnabled);
     }//GEN-LAST:event_btnGuardarPreguntaActionPerformed
 
