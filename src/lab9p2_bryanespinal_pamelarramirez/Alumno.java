@@ -1,10 +1,11 @@
 
 package lab9p2_bryanespinal_pamelarramirez;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Alumno extends Usuario {
+public class Alumno extends Usuario implements Serializable {
     private String carrera;
     private ArrayList <Clase> clases = new ArrayList();
 

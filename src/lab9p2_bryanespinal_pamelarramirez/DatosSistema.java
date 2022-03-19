@@ -1,5 +1,11 @@
 package lab9p2_bryanespinal_pamelarramirez;
 
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -9,8 +15,8 @@ public class DatosSistema {
     Dba db = new Dba("./NeoBlackboard.mdb");
     ArrayList<Usuario> usuarios = new ArrayList();
     ArrayList<Clase> clases = new ArrayList();
-    adminAlumnos archivoAlumnos = new adminAlumnos("./alumnos.cbm");
-    adminExamenes archivoExamenes = new adminExamenes("./examenes.cbm");
+    // adminAlumnos archivoAlumnos = new adminAlumnos("./alumnos.cbm");
+    // adminExamenes archivoExamenes = new adminExamenes("./examenes.cbm");
     
     // Cargar datos
 
@@ -36,9 +42,9 @@ public class DatosSistema {
             ex.printStackTrace();
         }
         db.desconectar();
-        archivoAlumnos.cargarArchivo();
-        if (!archivoAlumnos.getAlumnos().isEmpty()) {
-            for (Alumno alumno : archivoAlumnos.getAlumnos()) {
+        cargarArchivoAlumnos();
+        if (!alumnos.isEmpty()) {
+            for (Alumno alumno : alumnos) {
                 usuarios.add(alumno);
             }
         }
@@ -61,9 +67,9 @@ public class DatosSistema {
     }
     
     public void cargarExamenes() {
-        archivoExamenes.cargarArchivo();
-        if (!archivoExamenes.getExamenes().isEmpty()) {
-            for (Examen examen : archivoExamenes.getExamenes()) {
+        cargarArchivoExamenes();
+        if (!examenes.isEmpty()) {
+            for (Examen examen : examenes) {
                 for (Clase clase : clases) {
                     if (clase.getIdExamen1() == examen.getIdExamen()) {
                         clase.setExamen1(examen);
@@ -135,15 +141,121 @@ public class DatosSistema {
         db.desconectar();
     }
     
-    public void agregarPregunta(String nombre, String idMaestro, String idExamen1, String idExamen2) {
-        db.conectar();
+    public void agregarPregunta(int idClase, int idExamen, String pregunta, boolean respuesta) {
+        /*db.conectar();
         try {
-            db.query.execute("INSERT INTO clase (Nombre,id_maestro,id_examen1,Id_examen2) " + "Values ('" + nombre + "', '" + idMaestro + "', '" + idExamen1 + "','" + idExamen2 + "')");
+            db.query.execute("INSERT INTO clase (id_clase,tipo_examen,Pregunta,respuesta) " + "Values ('" + nombre + "', '" + idMaestro + "', '" + idExamen1 + "','" + idExamen2 + "')");
             db.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        db.desconectar();
+        db.desconectar();*/
+    }
+    
+    // Archivo alumnos
+    
+    private ArrayList<Alumno> alumnos = new ArrayList();
+    private File archivoAlumnos = new File("./Alumnos.cbm");
+    
+    public void addAlumno(Alumno alumno){
+        alumnos.add(alumno);
+        escribirArchivoAlumnos();
+    }
+    
+    public void cargarArchivoAlumnos() {
+        try {            
+            alumnos = new ArrayList();
+            Alumno alumno;
+            if (archivoAlumnos.exists()) {
+                FileInputStream entrada = new FileInputStream(archivoAlumnos);
+                ObjectInputStream objeto = new ObjectInputStream(entrada);
+                try {
+                    while ((alumno = (Alumno) objeto.readObject()) != null) {
+                        alumnos.add(alumno);
+                    }
+                }
+                catch (EOFException e) {
+                    // Final del archivo
+                }
+                objeto.close();
+                entrada.close();
+            }            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void escribirArchivoAlumnos() {
+        FileOutputStream fw = null;
+        ObjectOutputStream bw = null;
+        try {
+            fw = new FileOutputStream(archivoAlumnos);
+            bw = new ObjectOutputStream(fw);
+            for (Alumno alumno : alumnos) {
+                bw.writeObject(alumno);
+            }
+            bw.flush();
+        } catch (Exception ex) {
+        } finally {
+            try {
+                bw.close();
+                fw.close();
+            } catch (Exception ex) {
+            }
+        }
+    }
+    
+    // Archivo examenes
+    
+    private ArrayList<Examen> examenes = new ArrayList();
+    private File archivoExamenes = new File("./Examenes.cbm");
+    
+    public void addExamen(Examen examen){
+        examenes.add(examen);
+        escribirArchivoExamenes();
+    }
+    
+    public void cargarArchivoExamenes() {
+        try {            
+            examenes = new ArrayList();
+            Examen examen;
+            if (archivoExamenes.exists()) {
+                FileInputStream entrada = new FileInputStream(archivoExamenes);
+                ObjectInputStream objeto = new ObjectInputStream(entrada);
+                try {
+                    while ((examen = (Examen) objeto.readObject()) != null) {
+                        examenes.add(examen);
+                    }
+                }
+                catch (EOFException e) {
+                    // Final del archivo
+                }
+                objeto.close();
+                entrada.close();
+            }            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void escribirArchivoExamenes() {
+        FileOutputStream fw = null;
+        ObjectOutputStream bw = null;
+        try {
+            fw = new FileOutputStream(archivoExamenes);
+            bw = new ObjectOutputStream(fw);
+            for (Examen examen : examenes) {
+                bw.writeObject(examen);
+            }
+            bw.flush();
+        } catch (Exception ex) {
+        } finally {
+            try {
+                bw.close();
+                fw.close();
+            } catch (Exception ex) {
+            }
+        }
     }
     
 }

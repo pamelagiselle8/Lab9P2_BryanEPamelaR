@@ -1,10 +1,11 @@
 
 package lab9p2_bryanespinal_pamelarramirez;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Examen {
+public class Examen implements Serializable {
     private int idExamen;
     private ArrayList <Pregunta> preguntas = new ArrayList();
 
