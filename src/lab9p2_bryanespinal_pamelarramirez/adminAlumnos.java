@@ -35,6 +35,7 @@ public class adminAlumnos {
     
     public void addAlumno(Alumno alumno){
         alumnos.add(alumno);
+        escribirArchivo();
     }
     
     public void cargarArchivo() {

@@ -13,14 +13,18 @@ public class DatosSistema {
     adminExamenes archivoExamenes = new adminExamenes("./examenes.cbm");
     
     // Cargar datos
+
+    public DatosSistema() {
+        
+    }
     
     public void cargarDatos() {
         cargarUsuarios();
         cargarClases();
-        cargarExamenes();
     }
     
     public void cargarUsuarios() {
+        ArrayList<Usuario> usuarios = new ArrayList();
         db.conectar();
         try {
             db.query.execute("select Nombres,Nombre_De_Usuario,Contrasenia,RRHH from Maestros");
@@ -41,6 +45,7 @@ public class DatosSistema {
     }
     
     public void cargarClases() {
+        ArrayList<Clase> clases = new ArrayList();
         db.conectar();
         try {
             db.query.execute("select Nombre,Id,id_maestro from clase");
@@ -52,6 +57,7 @@ public class DatosSistema {
             ex.printStackTrace();
         }
         db.desconectar();
+        cargarExamenes();
     }
     
     public void cargarExamenes() {
@@ -122,12 +128,22 @@ public class DatosSistema {
             // "" + + "','"
             db.query.execute("INSERT INTO clase (Nombre,id_maestro,id_examen1,Id_examen2) " + "Values ('" + nombre + "', '" + idMaestro + "', '" + idExamen1 + "','" + idExamen2 + "')");
             db.commit();
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
         db.desconectar();
     }
     
-    
+    public void agregarPregunta(String nombre, String idMaestro, String idExamen1, String idExamen2) {
+        db.conectar();
+        try {
+            db.query.execute("INSERT INTO clase (Nombre,id_maestro,id_examen1,Id_examen2) " + "Values ('" + nombre + "', '" + idMaestro + "', '" + idExamen1 + "','" + idExamen2 + "')");
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+    }
     
 }
