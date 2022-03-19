@@ -15,8 +15,6 @@ public class DatosSistema {
     Dba db = new Dba("./NeoBlackboard.mdb");
     ArrayList<Usuario> usuarios = new ArrayList();
     ArrayList<Clase> clases = new ArrayList();
-    // adminAlumnos archivoAlumnos = new adminAlumnos("./alumnos.cbm");
-    // adminExamenes archivoExamenes = new adminExamenes("./examenes.cbm");
     
     // Cargar datos
 
@@ -30,7 +28,7 @@ public class DatosSistema {
     }
     
     public void cargarUsuarios() {
-        ArrayList<Usuario> usuarios = new ArrayList();
+        usuarios = new ArrayList();
         db.conectar();
         try {
             db.query.execute("select Nombres,Nombre_De_Usuario,Contrasenia,RRHH from Maestros");
@@ -51,7 +49,7 @@ public class DatosSistema {
     }
     
     public void cargarClases() {
-        ArrayList<Clase> clases = new ArrayList();
+        clases = new ArrayList();
         db.conectar();
         try {
             db.query.execute("select Nombre,Id,id_maestro from clase");
@@ -142,14 +140,25 @@ public class DatosSistema {
     }
     
     public void agregarPregunta(int idClase, int idExamen, String pregunta, boolean respuesta) {
-        /*db.conectar();
+        db.conectar();
         try {
-            db.query.execute("INSERT INTO clase (id_clase,tipo_examen,Pregunta,respuesta) " + "Values ('" + nombre + "', '" + idMaestro + "', '" + idExamen1 + "','" + idExamen2 + "')");
+            db.query.execute("INSERT INTO Preguntas (id_clase,tipo_examen,Pregunta,respuesta) " + "Values ('" + idClase + "', '" + idExamen + "', '" + pregunta + "','" + respuesta + "')");
             db.commit();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        db.desconectar();*/
+        db.desconectar();
+    }
+    
+    public void agregarResultado(int idAlumno, int idExamen, int nota) {
+        db.conectar();
+        try {
+            db.query.execute("INSERT INTO resultados (id_alumno,id_examen,nota) " + "Values ('" + idAlumno + "', '" + idExamen + "', '" + nota + "')");
+            db.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
     }
     
     // Archivo alumnos
@@ -256,6 +265,24 @@ public class DatosSistema {
             } catch (Exception ex) {
             }
         }
+    }
+    
+    // Getters y setters
+
+    public ArrayList<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(ArrayList<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public ArrayList<Clase> getClases() {
+        return clases;
+    }
+
+    public void setClases(ArrayList<Clase> clases) {
+        this.clases = clases;
     }
     
 }
