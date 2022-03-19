@@ -299,7 +299,14 @@ public class DatosSistema {
     public ArrayList<Resultado> getResultados() {
         return resultados;
     }
-    
+
+    public ArrayList<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public ArrayList<Examen> getExamenes() {
+        return examenes;
+    }
     
     // Metodos para llenar componentes
     
@@ -321,17 +328,39 @@ public class DatosSistema {
         return cboModel;
     }
     
-    public DefaultTableModel llenarTablaNotas() {
+    public DefaultTableModel llenarTablaNotas(Clase clase) {
         DefaultTableModel tblModel = new DefaultTableModel();
-        String[] a = new String[3];
-        tblModel.setColumnCount(5);
+        String[] a = new String[4];
+        tblModel.setColumnCount(4);
         tblModel.setRowCount(resultados.size());
         a[0] = "Nombre";
         a[1] = "Clase";
-        a[2] = "Calificacion";
+        a[2] = "Examen";
+        a[3] = "Calificacion";
         tblModel.setColumnIdentifiers(a);
+        String nombre = "";
+        int nota = 0, filas = 0, examen = 1;
         for (Resultado resultado : resultados) {
-            
+            if (clase.getExamen1().getIdExamen() == resultado.getIdExamen()
+                || clase.getExamen2().getIdExamen() == resultado.getIdExamen()) {
+                examen = 1;
+                if (clase.getExamen2().getIdExamen() == resultado.getIdExamen()) {
+                    examen = 2;
+                }
+                for (Alumno alumno : alumnos) {
+                    if (alumno.getId() == String.valueOf(resultado.getIdAlumno())) {
+                        nombre = alumno.getNombre();
+                    }
+                }
+                nota = resultado.getNota();
+                Object[] fila = new Object[3];
+                fila[0] = nombre;
+                fila[1] = clase;
+                fila[2] = examen;
+                fila[3] = nota;
+                tblModel.addRow(fila);
+                filas++;
+            }
         }
         return tblModel;
     }

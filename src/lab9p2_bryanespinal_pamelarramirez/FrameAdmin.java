@@ -22,12 +22,10 @@ public class FrameAdmin extends javax.swing.JFrame {
         txtUsuario.setText(null);
         txtPass.setText(null);
         txtId.setText(null);
-        //cboTipoUsuario.setSelectedIndex(0);
     }
     
     public void limpiarTab2() {
         txtClase.setText(null);
-        //cboMaestros.setSelectedIndex(0);
         txtExamen1.setText(null);
         txtExamen2.setText(null);
         try {
@@ -505,7 +503,10 @@ public class FrameAdmin extends javax.swing.JFrame {
                 limpiarTab1();
                 JOptionPane.showMessageDialog(this, "Maestro agregado exitosamente.");
             } else if (cboTipoUsuario.getSelectedIndex() == 2) {
-                //ds.addAlumno(txtNombre.getText(), txtUsuario.getText(), txtPass.getText(), txtId.getText());
+                ds.addAlumno(new Alumno(txtNombre.getText(), txtUsuario.getText(), txtPass.getText(), txtId.getText()));
+                limpiarTab1();
+                System.out.println(ds.getAlumnos());
+                JOptionPane.showMessageDialog(this, "Alumno agregado exitosamente.");
             }
             ds.cargarUsuarios();
         } catch (Exception e) {
@@ -514,7 +515,11 @@ public class FrameAdmin extends javax.swing.JFrame {
 
     private void cboClasesNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboClasesNotasActionPerformed
         if (cboClasesNotas.getSelectedIndex() >= 0) {
-            Clase clase = (Clase) cboClasesNotas.getSelectedItem();
+            try {
+                Clase clase = (Clase) cboClasesNotas.getSelectedItem();
+                tablaNotas.setModel(ds.llenarTablaNotas(clase));
+            } catch (Exception e) {
+            }
         }
     }//GEN-LAST:event_cboClasesNotasActionPerformed
 
