@@ -33,7 +33,7 @@ Dba db = new Dba("./NeoBlackboard.mdb");
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        tiempo = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jRadioButton1 = new javax.swing.JRadioButton();
@@ -41,6 +41,7 @@ Dba db = new Dba("./NeoBlackboard.mdb");
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        ADV = new javax.swing.JLabel();
         buttonGroup1 = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -78,8 +79,8 @@ Dba db = new Dba("./NeoBlackboard.mdb");
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Tiempo");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Inserte tiempo aqui");
+        tiempo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tiempo.setText("Inserte tiempo aqui");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -101,6 +102,14 @@ Dba db = new Dba("./NeoBlackboard.mdb");
         });
 
         jButton4.setText("Comenzar Examen");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
+
+        ADV.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        ADV.setForeground(new java.awt.Color(255, 51, 51));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -124,7 +133,7 @@ Dba db = new Dba("./NeoBlackboard.mdb");
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3)
-                            .addComponent(jLabel3))))
+                            .addComponent(tiempo))))
                 .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(154, 154, 154)
@@ -138,8 +147,13 @@ Dba db = new Dba("./NeoBlackboard.mdb");
                         .addComponent(jRadioButton2)
                         .addGap(178, 178, 178))))
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(358, 358, 358)
-                .addComponent(jButton2)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(358, 358, 358)
+                        .addComponent(jButton2))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(249, 249, 249)
+                        .addComponent(ADV, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -148,12 +162,14 @@ Dba db = new Dba("./NeoBlackboard.mdb");
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(tiempo))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(115, 115, 115)
+                .addGap(18, 18, 18)
+                .addComponent(ADV, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2))
@@ -342,6 +358,12 @@ Dba db = new Dba("./NeoBlackboard.mdb");
         examen.setVisible(false);
     }//GEN-LAST:event_jButton3MouseClicked
 
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+       Reloj r=new Reloj(tiempo,ADV);
+       Thread proceso1 = new Thread(r);
+       proceso1.start();
+    }//GEN-LAST:event_jButton4MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -378,6 +400,7 @@ Dba db = new Dba("./NeoBlackboard.mdb");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ADV;
     private javax.swing.JFrame FrameExamen;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JFrame examen;
@@ -390,7 +413,6 @@ Dba db = new Dba("./NeoBlackboard.mdb");
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -406,5 +428,6 @@ Dba db = new Dba("./NeoBlackboard.mdb");
     private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel tiempo;
     // End of variables declaration//GEN-END:variables
 }
