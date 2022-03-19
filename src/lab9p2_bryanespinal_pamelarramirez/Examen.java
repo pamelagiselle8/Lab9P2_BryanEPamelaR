@@ -5,19 +5,19 @@ import java.util.ArrayList;
 
 
 public class Examen {
-    private String idExamen;
+    private int idExamen;
     private ArrayList <Pregunta> preguntas = new ArrayList();
 
-    public Examen(String idExamen, ArrayList <Pregunta> preguntas) {
+    public Examen(int idExamen, ArrayList <Pregunta> preguntas) {
         this.idExamen = idExamen;
         this.preguntas = preguntas;
     }
 
-    public String getIdExamen() {
+    public int getIdExamen() {
         return idExamen;
     }
 
-    public void setIdExamen(String idExamen) {
+    public void setIdExamen(int idExamen) {
         this.idExamen = idExamen;
     }
 

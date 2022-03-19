@@ -1,22 +1,60 @@
-
 package lab9p2_bryanespinal_pamelarramirez;
 
+import java.sql.*;
+import java.util.ArrayList;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class FrameAdmin extends javax.swing.JFrame {
-
     
+
     public FrameAdmin() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
 
+    /*public DefaultComboBoxModel llenarCboMaestros() {
+        DefaultComboBoxModel cboModel = new DefaultComboBoxModel();
+        db.conectar();
+        try {
+            db.query.execute("select Id, Nombres from Maestros");
+            ResultSet rs = db.query.getResultSet();
+            while (rs.next()) {
+                cboModel.addElement(rs.getString(2) + "-" + rs.getString(1));
+            }
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+        return cboModel;
+    }
     
+    public DefaultComboBoxModel llenarCboClases() {
+        DefaultComboBoxModel cboModel = new DefaultComboBoxModel();
+        db.conectar();
+        try {
+            db.query.execute("select Id, Nombre from clase");
+            ResultSet rs = db.query.getResultSet();
+            while (rs.next()) {
+                cboModel.addElement(rs.getString(1) + " " + rs.getString(2));
+            }
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        db.desconectar();
+        return cboModel;
+    }*/
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         btnGroupResp = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -53,6 +91,28 @@ public class FrameAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
+        jLabel13.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
+        jLabel13.setText("Administrar usuarios");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(350, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel13)
+                .addContainerGap(451, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Usuarios", jPanel4);
+
         jLabel2.setFont(new java.awt.Font("Helvetica Neue", 1, 18)); // NOI18N
         jLabel2.setText("Administrar clases");
 
@@ -60,7 +120,7 @@ public class FrameAdmin extends javax.swing.JFrame {
 
         jLabel3.setText("ID Examen 1");
 
-        jLabel4.setText("ID Examen 1");
+        jLabel4.setText("ID Examen 2");
 
         jLabel5.setText("Maestro");
 
@@ -87,9 +147,9 @@ public class FrameAdmin extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtExamen1, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtClase, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
+                            .addComponent(txtClase)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cboMaestros, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnGuardarClase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -141,6 +201,11 @@ public class FrameAdmin extends javax.swing.JFrame {
         jLabel8.setText("Respuesta");
 
         btnGuardarPregunta.setText("Guardar pregunta");
+        btnGuardarPregunta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarPreguntaActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Categoria del examen");
 
@@ -163,7 +228,6 @@ public class FrameAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(jLabel7)
                     .addComponent(jLabel6)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(rbtnTrue)
                         .addGap(44, 44, 44)
@@ -171,8 +235,9 @@ public class FrameAdmin extends javax.swing.JFrame {
                     .addComponent(btnGuardarPregunta, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(cboExamen, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
-                .addContainerGap(180, Short.MAX_VALUE))
+                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(300, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,10 +352,16 @@ public class FrameAdmin extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void btnGuardarClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClaseActionPerformed
+        String nombre = txtClase.getText();
+        String idExamen1 = txtExamen1.getText();
+        String idExamen2 = txtExamen2.getText();
         
     }//GEN-LAST:event_btnGuardarClaseActionPerformed
 
-    
+    private void btnGuardarPreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPreguntaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarPreguntaActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -335,6 +406,7 @@ public class FrameAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -349,6 +421,7 @@ public class FrameAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;

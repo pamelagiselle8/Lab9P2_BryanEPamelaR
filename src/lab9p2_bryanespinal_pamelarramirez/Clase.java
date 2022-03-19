@@ -5,16 +5,22 @@ import java.util.*;
 
 
 public class Clase {
-    private String nombre, id, idMaestro, idExamen1, idExamen2;
+    private String nombre, idMaestro;
+    private int id, IdExamen1, IdExamen2;
     private Date fecha;
+    private Examen examen1, examen2;
 
-    public Clase(String nombre, String id, String idMaestro, String idExamen1, String idExamen2, Date fecha) {
+    public Clase(String nombre, String idMaestro, int IdExamen1, int IdExamen2) {
         this.nombre = nombre;
-        this.id = id;
         this.idMaestro = idMaestro;
-        this.idExamen1 = idExamen1;
-        this.idExamen2 = idExamen2;
-        this.fecha = fecha;
+        this.IdExamen1 = IdExamen1;
+        this.IdExamen2 = IdExamen2;
+    }
+    
+    public Clase(String nombre, int id, String idMaestro) {
+        this.nombre = nombre;
+        this.idMaestro = idMaestro;
+        this.id = id;
     }
 
     public String getNombre() {
@@ -25,11 +31,11 @@ public class Clase {
         this.nombre = nombre;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -41,22 +47,6 @@ public class Clase {
         this.idMaestro = idMaestro;
     }
 
-    public String getIdExamen1() {
-        return idExamen1;
-    }
-
-    public void setIdExamen1(String idExamen1) {
-        this.idExamen1 = idExamen1;
-    }
-
-    public String getIdExamen2() {
-        return idExamen2;
-    }
-
-    public void setIdExamen2(String idExamen2) {
-        this.idExamen2 = idExamen2;
-    }
-
     public Date getFecha() {
         return fecha;
     }
@@ -64,6 +54,37 @@ public class Clase {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
+
+    public Examen getExamen1() {
+        return examen1;
+    }
+
+    public void setExamen1(Examen examen1) {
+        this.examen1 = examen1;
+    }
+
+    public Examen getExamen2() {
+        return examen2;
+    }
+
+    public void setExamen2(Examen examen2) {
+        this.examen2 = examen2;
+    }
+
+    public int getIdExamen1() {
+        return IdExamen1;
+    }
+
+    public void setIdExamen1(int IdExamen1) {
+        this.IdExamen1 = IdExamen1;
+    }
+
+    public int getIdExamen2() {
+        return IdExamen2;
+    }
+
+    public void setIdExamen2(int IdExamen2) {
+        this.IdExamen2 = IdExamen2;
+    }
     
 }
